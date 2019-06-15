@@ -33,13 +33,12 @@ for (const name in definitions) {
 }
 
 Object.keys(db).forEach(model => {
-  if (model.associate) {
-    model.associate(db);
+  if (db[model].associate) {
+    console.log("model has associate", model);
+    db[model].associate(db);
   }
 });
 
 db.connection = connection;
 
-connection.sync();
-console.log("RPINGING AGAIN");
 export { db as default };
