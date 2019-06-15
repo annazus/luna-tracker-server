@@ -8,16 +8,17 @@ const UserSymptomDetail = connection => {
       allowNull: false
     },
     date: {
-      type: Sequelize.DATEONLY
+      type: Sequelize.DATEONLY,
+      unique: "UserSymptomDetail"
     }
   });
 
   usersymptomdetail.associate = models => {
     models.UserSymptomDetail.belongsTo(models.User, {
-      foreignKey: { allowNull: false }
+      foreignKey: { allowNull: false, unique: "UserSymptomDetail" }
     });
     models.UserSymptomDetail.belongsTo(models.SymptomDetail, {
-      foreignKey: { allowNull: false }
+      foreignKey: { allowNull: false, unique: "UserSymptomDetail" }
     });
   };
   return usersymptomdetail;

@@ -1,0 +1,49 @@
+type Query {
+  hello: String!
+  me: User!
+  symptoms: [Symptom!]!
+  symptomDetails: [SymptomDetail]!
+  userSymptomDetails: [UserSymptomDetail!]!
+}
+
+type Mutation {
+  createUser: String!
+  createUserSymptomDetail(data: CreateUserSymptomDetail): UserSymptomDetail!
+}
+
+input CreateUserSymptomDetail {
+  date: String!
+  user: ID!
+  symptomDetail: ID!
+}
+type User {
+  id: ID!
+  name: String!
+  email: String!
+}
+type Symptom {
+  id: ID!
+  name: String!
+  isExclusive: Boolean!
+  createdAt: String!
+  updatedAt: String!
+  symptomDetails: [SymptomDetail]
+}
+
+type SymptomDetail {
+  id: ID!
+  name: String!
+  symptom: Symptom!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type UserSymptomDetail {
+  id: ID!
+  user: User!
+  date: String!
+  symptom: Symptom!
+  symptomDetail: SymptomDetail!
+  createdAt: String!
+  updatedAt: String!
+}
