@@ -1,6 +1,7 @@
 import moment from "moment";
 const Symptom = {
   symptomDetails: async (parent, args, { request, db }, info) => {
+    console.log("parent", parent.id);
     const _symptomDetails = await db.SymptomDetail.findAll({
       where: { symptomId: parent.id }
     });

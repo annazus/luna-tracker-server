@@ -9,6 +9,7 @@ const resolvers = {
   SymptomDetail,
   Mutation,
   UserSymptomDetail,
-  Symptom
+  Symptom,
+  User
 };
 export { resolvers };

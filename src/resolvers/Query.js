@@ -41,7 +41,7 @@ const Query = {
         return {
           ...usd,
           id: usd.id.toString(),
-          date: moment(usd.date).format("YYYMMDD"),
+          date: moment(usd.date).format("YYYYMMDD"),
           //   userId: usd.userId.toString(),
           symptomDetailId: usd.symptomDetailId.toString(),
           createdAt: moment(usd.createdAt).format("YYYYMMDDhhmmss"),

@@ -9,6 +9,7 @@ type Query {
 type Mutation {
   createUser: String!
   createUserSymptomDetail(data: CreateUserSymptomDetail): UserSymptomDetail!
+  deleteUserSymptomDetail(userSymptomDetailId: ID!): UserSymptomDetail!
 }
 
 input CreateUserSymptomDetail {
@@ -20,6 +21,7 @@ type User {
   id: ID!
   name: String!
   email: String!
+  userSymptomDetails: [UserSymptomDetail!]!
 }
 type Symptom {
   id: ID!
@@ -27,12 +29,13 @@ type Symptom {
   isExclusive: Boolean!
   createdAt: String!
   updatedAt: String!
-  symptomDetails: [SymptomDetail]
+  symptomDetails: [SymptomDetail!]!
 }
 
 type SymptomDetail {
   id: ID!
   name: String!
+
   symptom: Symptom!
   createdAt: String!
   updatedAt: String!
