@@ -31,6 +31,7 @@ const Mutation = {
     };
   },
   createUserSymptomDetail: async (parent, { data }, { request, db }, info) => {
+    console.log("createUserSymptomDetail", data);
     const userId = getUserId(request);
 
     const { dataValues: usd } = await db.UserSymptomDetail.create({
