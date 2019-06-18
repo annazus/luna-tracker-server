@@ -1,17 +1,43 @@
 import moment from "moment";
+import bcrypt from "bcryptjs";
+import getToken from "../utils/getToken";
+import getUserId from "../utils/getUserId";
+import getHashPassword from "../utils/getHashPassword";
 const Mutation = {
-  createUser: () => {
-    console.log("createUser");
-    return "sfdf";
+  createUser: async (parent, { data }, { db, request }, info) => {
+    const hashPassword = await getHashPassword(data.password);
+
+    const user = await db.User.create({
+      name: data.name,
+      password: hashPassword,
+      email: data.email
+    });
+    return {
+      user: user.dataValues,
+      token: getToken(user.dataValues.id)
+    };
+  },
+  loginUser: async (parent, { data }, { db }, info) => {
+    const user = await db.User.findOne({ where: { email: data.email } });
+
+    if (!user) throw new Error("User not found");
+
+    if (!bcrypt.compare(user.dataValues.password))
+      throw new Error("User not found");
+
+    return {
+      user: user.dataValues,
+      token: getToken(user.dataValues.id)
+    };
   },
   createUserSymptomDetail: async (parent, { data }, { request, db }, info) => {
-    console.log(data);
+    const userId = getUserId(request);
+
     const { dataValues: usd } = await db.UserSymptomDetail.create({
-      userId: data.user,
+      userId: userId,
       symptomDetailId: data.symptomDetail,
       date: moment(data.date)
     });
-    console.log(usd);
     return {
       ...usd,
       id: usd.id.toString(),
@@ -28,10 +54,12 @@ const Mutation = {
     { request, db },
     info
   ) => {
-    console.log("deleteUserSymptomDetail", userSymptomDetailId);
+    const userId = getUserId(request);
+
     const record = await db.UserSymptomDetail.findByPk(userSymptomDetailId);
+    if (record.userId !== userId)
+      throw new Error("You do not have permission to delete this record");
     const usd = await record.destroy();
-    console.log(usd);
     return {
       ...record,
       id: record.id.toString(),

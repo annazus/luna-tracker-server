@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "env-cmd -f ./config/dev.env nodemon src/index.js --exec babel-node",
+    "dev": "env-cmd -f ./config/dev.env nodemon src/index.js --ext js,graphql --exec babel-node",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -18,7 +18,9 @@
     "nodemon": "^1.19.1"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "graphql-yoga": "^1.17.4",
+    "jsonwebtoken": "^8.5.1",
     "moment": "^2.24.0",
     "pg": "^7.11.0",
     "pg-hstore": "^2.3.3",

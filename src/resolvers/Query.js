@@ -1,15 +1,14 @@
 import moment from "moment";
+import getUserId from "../utils/getUserId";
 const Query = {
   hello: (parent, args, { request, db }, info) => {
     return "Hello";
   },
   me: async (parent, args, { request, db }, info) => {
-    const { dataValues: user } = await db.User.findOne({
-      where: {
-        email: "kmsuzanna@gmail.com"
-      }
-    });
-    return { ...user, id: user.id.toString() };
+    const userId = getUserId(request);
+
+    const { dataValues: user } = await db.User.findByPk(userId);
+    return { ...user.dataValues, id: user.id.toString(), password: "" };
   },
   symptoms: async (parent, args, { request, db }, info) => {
     const _symptoms = await db.Symptom.findAll();
@@ -35,7 +34,11 @@ const Query = {
     return symptomDetails;
   },
   userSymptomDetails: async (parent, args, { request, db }, info) => {
-    const _userSymptomDetails = await db.UserSymptomDetail.findAll();
+    const userId = getUserId(request);
+
+    const _userSymptomDetails = await db.UserSymptomDetail.findAll({
+      where: { userId: userId }
+    });
     const userSymptomDetails = _userSymptomDetails.map(
       ({ dataValues: usd }) => {
         return {
@@ -54,4 +57,3 @@ const Query = {
 };
 
 export { Query as default };
-// createUserSymptomDetail(data: CreateUserSymptomDetail): UserSymptomDetail!

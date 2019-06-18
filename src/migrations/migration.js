@@ -1,71 +1,164 @@
 import db from "../database";
-db.connection.sync();
 
 const createData = async () => {
-  //   const user = await db.User.create({
-  //     name: "suzanna kovoor",
-  //     email: "kmsuzanna@gmail.com"
-  //   });
+  const user = await db.User.create({
+    name: "suzanna kovoor",
+    password: "true",
+    email: "kmsuzanna@gmail.com"
+  });
 
-  //     const symptom = await db.Symptom.create({
-  //       name: "Bleeding",
-  //       description: "Bleeding",
-  //       isExclusive: true
-  //     });
+  let symptom = await db.Symptom.create({
+    name: "Bleeding",
+    description: "Bleeding",
+    isExclusive: true
+  }).then(async symptom => {
+    let symptomDetail = await db.SymptomDetail.create({
+      symptomId: symptom.dataValues.id,
+      name: "Light",
+      description: "Light"
+    });
+    symptomDetail = await db.SymptomDetail.create({
+      symptomId: symptom.dataValues.id,
+      name: "Medium",
+      description: "Medium"
+    });
 
-  //   let symptomDetail = await db.SymptomDetail.create({
-  //     symptomId: symptom.dataValues.id,
-  //     name: "Light",
-  //     description: "Light"
-  //   });
-  //   symptomDetail = await db.SymptomDetail.create({
-  //     symptomId: symptom.dataValues.id,
-  //     name: "Medium",
-  //     description: "Medium"
-  //   });
+    symptomDetail = await db.SymptomDetail.create({
+      symptomId: symptom.dataValues.id,
+      name: "Heavy",
+      description: "Heavy"
+    });
 
-  //   symptomDetail = await db.SymptomDetail.create({
-  //     symptomId: symptom.dataValues.id,
-  //     name: "Heavy",
-  //     description: "Heavy"
-  //   });
+    symptomDetail = await db.SymptomDetail.create({
+      symptomId: symptom.dataValues.id,
+      name: "Spotting",
+      description: "Spotting"
+    });
+  });
 
-  //   symptomDetail = await db.SymptomDetail.create({
-  //     symptomId: symptom.dataValues.id,
-  //     name: "Spotting",
-  //     description: "Spotting"
-  //   });
-
-  const symptom = await db.Symptom.create({
+  symptom = await db.Symptom.create({
     name: "Pain",
     description: "Pain",
     isExclusive: false
+  }).then(async symptom => {
+    let symptomDetail = await db.SymptomDetail.create({
+      symptomId: symptom.dataValues.id,
+      name: "Cramps",
+      description: "Cramps"
+    });
+    symptomDetail = await db.SymptomDetail.create({
+      symptomId: symptom.dataValues.id,
+      name: "Headache",
+      description: "Headache"
+    });
+
+    symptomDetail = await db.SymptomDetail.create({
+      symptomId: symptom.dataValues.id,
+      name: "Ovulation",
+      description: "Ovulation"
+    });
+
+    symptomDetail = await db.SymptomDetail.create({
+      symptomId: symptom.dataValues.id,
+      name: "Tender Breasts",
+      description: "Tender Breasts"
+    });
   });
 
-  let symptomDetail = await db.SymptomDetail.create({
-    symptomId: symptom.dataValues.id,
-    name: "Cramps",
-    description: "Cramps"
-  });
-  symptomDetail = await db.SymptomDetail.create({
-    symptomId: symptom.dataValues.id,
-    name: "Headache",
-    description: "Headache"
+  symptom = await db.Symptom.create({
+    name: "Emotions",
+    description: "Emotions",
+    isExclusive: false
+  }).then(async symptom => {
+    let symptomDetail = await db.SymptomDetail.create({
+      symptomId: symptom.dataValues.id,
+      name: "Happy",
+      description: "Happy"
+    });
+    symptomDetail = await db.SymptomDetail.create({
+      symptomId: symptom.dataValues.id,
+      name: "Sensitive",
+      description: "Sensitive"
+    });
+
+    symptomDetail = await db.SymptomDetail.create({
+      symptomId: symptom.dataValues.id,
+      name: "Sad",
+      description: "Sad"
+    });
+
+    symptomDetail = await db.SymptomDetail.create({
+      symptomId: symptom.dataValues.id,
+      name: "PMS",
+      description: "PMS"
+    });
   });
 
-  symptomDetail = await db.SymptomDetail.create({
-    symptomId: symptom.dataValues.id,
-    name: "Ovulation",
-    description: "Ovulation"
+  symptom = await db.Symptom.create({
+    name: "Sleep",
+    description: "Sleep",
+    isExclusive: true
+  }).then(async symptom => {
+    let symptomDetail = await db.SymptomDetail.create({
+      symptomId: symptom.dataValues.id,
+      name: "0 to 3 hrs",
+      description: "0 to 3 hrs"
+    });
+    symptomDetail = await db.SymptomDetail.create({
+      symptomId: symptom.dataValues.id,
+      name: "3 to 6 hrs",
+      description: "3 to 6 hrs"
+    });
+
+    symptomDetail = await db.SymptomDetail.create({
+      symptomId: symptom.dataValues.id,
+      name: "6 to 9 hours",
+      description: "6 to 9 hours"
+    });
+
+    symptomDetail = await db.SymptomDetail.create({
+      symptomId: symptom.dataValues.id,
+      name: "9 hours or more",
+      description: "9 hours or more"
+    });
   });
 
-  symptomDetail = await db.SymptomDetail.create({
-    symptomId: symptom.dataValues.id,
-    name: "Tender Breasts",
-    description: "Tender Breasts"
+  symptom = await db.Symptom.create({
+    name: "Energy",
+    description: "Energy",
+    isExclusive: false
+  }).then(async symptom => {
+    let symptomDetail = await db.SymptomDetail.create({
+      symptomId: symptom.dataValues.id,
+      name: "Energized",
+      description: "Energized"
+    });
+    symptomDetail = await db.SymptomDetail.create({
+      symptomId: symptom.dataValues.id,
+      name: "High",
+      description: "High"
+    });
+
+    symptomDetail = await db.SymptomDetail.create({
+      symptomId: symptom.dataValues.id,
+      name: "Low",
+      description: "Low"
+    });
+
+    symptomDetail = await db.SymptomDetail.create({
+      symptomId: symptom.dataValues.id,
+      name: "Exhausted",
+      description: "Exhausted"
+    });
   });
 };
-createData();
+
+const createDb = () => {
+  db.connection
+    .drop({ force: true })
+    .then(() => db.connection.sync().then(() => createData()));
+};
+export { createDb as default };
 
 // User.sync({ force: true })
 //   .then(() => {

@@ -3,7 +3,6 @@ import db from "./database";
 import { resolvers } from "./resolvers";
 
 db.connection.sync();
-console.log(resolvers);
 const server = new GraphQLServer({
   typeDefs: "./src/schema.graphql",
   resolvers,

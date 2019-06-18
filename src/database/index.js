@@ -10,7 +10,8 @@ const connection = new Sequelize(
     dialect: "postgres",
     dialectOptions: {
       ssl: true
-    }
+    },
+    logging: null
   }
 );
 
@@ -23,18 +24,14 @@ connection
     console.error("Unable to connect to the database:", err);
   });
 
-// const user = definitions["User"](connection);
-// console.log();
 let db = {};
 for (const name in definitions) {
   const model = definitions[name](connection);
   db[name] = model;
-  console.log(name);
 }
 
 Object.keys(db).forEach(model => {
   if (db[model].associate) {
-    console.log("model has associate", model);
     db[model].associate(db);
   }
 });

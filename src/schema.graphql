@@ -7,14 +7,25 @@ type Query {
 }
 
 type Mutation {
-  createUser: String!
+  createUser(data: CreateUserInput): AuthPayload!
+  loginUser(data: LoginUserInput): AuthPayload!
   createUserSymptomDetail(data: CreateUserSymptomDetail): UserSymptomDetail!
   deleteUserSymptomDetail(userSymptomDetailId: ID!): UserSymptomDetail!
 }
 
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
+}
+
 input CreateUserSymptomDetail {
   date: String!
-  user: ID!
   symptomDetail: ID!
 }
 type User {
@@ -22,6 +33,11 @@ type User {
   name: String!
   email: String!
   userSymptomDetails: [UserSymptomDetail!]!
+}
+
+type AuthPayload {
+  token: String!
+  user: User!
 }
 type Symptom {
   id: ID!
