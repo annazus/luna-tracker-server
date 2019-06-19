@@ -4,16 +4,15 @@
       "@babel/preset-env",
       {
         "targets": {
-          "node": "10"
+          "node": "current"
         }
       }
     ]
   ],
   "plugins": [
     [
-      "transform-runtime",
+      "@babel/plugin-transform-runtime",
       {
-        "polyfill": false,
         "regenerator": true
       }
     ]
