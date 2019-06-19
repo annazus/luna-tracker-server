@@ -1,17 +1,15 @@
 import Sequelize from "sequelize";
 import * as definitions from "./models";
 const connection = new Sequelize(
-  process.env.PG_DB,
-  process.env.PG_USER,
-  process.env.PG_PASSWORD,
+  process.env.DATABASE_URL,
 
   {
-    host: process.env.PG_HOST,
     dialect: "postgres",
     dialectOptions: {
       ssl: true
     },
-    logging: null
+    logging: null,
+    schema: process.env.DATABASE_SCHEMA
   }
 );
 
