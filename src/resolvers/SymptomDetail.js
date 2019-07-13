@@ -10,6 +10,7 @@ const SymptomDetail = {
       createdAt: moment(sd.createdAt).format("YYYYMMDDhhmmss"),
       updatedAt: moment(sd.updatedAt).format("YYYYMMDDhhmmss")
     };
+    console.log(symptom);
     return symptom;
   }
 };

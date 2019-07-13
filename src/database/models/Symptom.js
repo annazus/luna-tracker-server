@@ -20,6 +20,11 @@ const Symptom = connection => {
     isExclusive: {
       type: Sequelize.BOOLEAN,
       allowNull: false
+    },
+    color: {
+      type: Sequelize.CHAR(7),
+      allowNull: false,
+      defaultValue: "#79b298"
     }
   });
 

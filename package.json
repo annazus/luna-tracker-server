@@ -9,6 +9,8 @@
   "scripts": {
     "test": "env-cmd -f ./config/test.env jest --watch --runInBand",
     "start": "node dist/index.js",
+    "seed-dev": "env-cmd -f ./config/dev.env babel-node src/migrations/index.js",
+    "seed-prod": "env-cmd -f ./config/prod.env babel-node src/migrations/index.js",
     "dev": "env-cmd -f ./config/dev.env nodemon src/index.js --ext js,graphql --exec babel-node",
     "heroku-postbuild": "babel src --out-dir dist --copy-files"
   },

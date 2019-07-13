@@ -1,6 +1,31 @@
-import db from "../database";
+import createModels from "../database";
 
-const createData = async () => {
+export const dropDb = async () => {
+  let db = createModels();
+  await db.connection.sync();
+
+  console.log("Dropping UserSymptomDetail");
+
+  await db.UserSymptomDetail.drop({ cascade: true });
+  console.log("Dropping SymptomDetail");
+
+  await db.SymptomDetail.drop({ cascade: true });
+  console.log("Dropping Symptom");
+
+  await db.Symptom.drop({ cascade: true });
+  console.log("Dropping User");
+
+  await db.User.drop({ cascade: true });
+  console.log("dropDB compleed");
+};
+export const createData = async () => {
+  console.log("Creating new models");
+
+  let db = createModels();
+  await db.connection.sync();
+
+  console.log("Ready to populate");
+
   const user = await db.User.create({
     name: "suzanna kovoor",
     password: "true",
@@ -10,7 +35,8 @@ const createData = async () => {
   let symptom = await db.Symptom.create({
     name: "Bleeding",
     description: "Bleeding",
-    isExclusive: true
+    isExclusive: true,
+    color: "#da222b"
   }).then(async symptom => {
     let symptomDetail = await db.SymptomDetail.create({
       symptomId: symptom.dataValues.id,
@@ -39,7 +65,8 @@ const createData = async () => {
   symptom = await db.Symptom.create({
     name: "Pain",
     description: "Pain",
-    isExclusive: false
+    isExclusive: false,
+    color: "#020202"
   }).then(async symptom => {
     let symptomDetail = await db.SymptomDetail.create({
       symptomId: symptom.dataValues.id,
@@ -68,7 +95,8 @@ const createData = async () => {
   symptom = await db.Symptom.create({
     name: "Emotions",
     description: "Emotions",
-    isExclusive: false
+    isExclusive: false,
+    color: "#88bbd6"
   }).then(async symptom => {
     let symptomDetail = await db.SymptomDetail.create({
       symptomId: symptom.dataValues.id,
@@ -97,7 +125,8 @@ const createData = async () => {
   symptom = await db.Symptom.create({
     name: "Sleep",
     description: "Sleep",
-    isExclusive: true
+    isExclusive: true,
+    color: "#36ab8c"
   }).then(async symptom => {
     let symptomDetail = await db.SymptomDetail.create({
       symptomId: symptom.dataValues.id,
@@ -126,7 +155,8 @@ const createData = async () => {
   symptom = await db.Symptom.create({
     name: "Energy",
     description: "Energy",
-    isExclusive: false
+    isExclusive: false,
+    color: "#fcb808"
   }).then(async symptom => {
     let symptomDetail = await db.SymptomDetail.create({
       symptomId: symptom.dataValues.id,
@@ -158,7 +188,6 @@ const createDb = () => {
     .drop({ force: true })
     .then(() => db.connection.sync().then(() => createData()));
 };
-export { createDb as default };
 
 // User.sync({ force: true })
 //   .then(() => {

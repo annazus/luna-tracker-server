@@ -22,18 +22,22 @@ connection
     console.error("Unable to connect to the database:", err);
   });
 
-let db = {};
-for (const name in definitions) {
-  const model = definitions[name](connection);
-  db[name] = model;
-}
-
-Object.keys(db).forEach(model => {
-  if (db[model].associate) {
-    db[model].associate(db);
+const createModels = () => {
+  let db = {};
+  for (const name in definitions) {
+    console.log("Creating " + name);
+    const model = definitions[name](connection);
+    if (model) db[name] = model;
   }
-});
 
-db.connection = connection;
+  Object.keys(db).forEach(model => {
+    if (db[model].associate) {
+      db[model].associate(db);
+    }
+  });
 
-export { db as default };
+  db.connection = connection;
+  return db;
+};
+
+export { createModels as default };

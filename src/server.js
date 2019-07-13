@@ -1,7 +1,8 @@
 import { GraphQLServer, PubSub } from "graphql-yoga";
-import db from "./database";
+import createModels from "./database";
 import { resolvers } from "./resolvers";
 
+let db = createModels();
 db.connection.sync();
 const server = new GraphQLServer({
   typeDefs: "./src/schema.graphql",
