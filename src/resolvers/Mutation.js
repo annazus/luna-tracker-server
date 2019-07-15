@@ -12,9 +12,11 @@ const Mutation = {
       password: hashPassword,
       email: data.email
     });
+    const { token, expiresInSeconds } = getToken(user.dataValues.id);
     return {
       user: user.dataValues,
-      token: getToken(user.dataValues.id)
+      token,
+      expiresInSeconds
     };
   },
   loginUser: async (parent, { data }, { db }, info) => {
@@ -22,16 +24,29 @@ const Mutation = {
 
     if (!user) throw new Error("User not found");
 
-    if (!bcrypt.compare(user.dataValues.password))
+    if (!bcrypt.compareSync(data.password, user.dataValues.password))
       throw new Error("User not found");
 
+    const { token, expiresInSeconds } = getToken(user.dataValues.id);
     return {
       user: user.dataValues,
-      token: getToken(user.dataValues.id)
+      token,
+      expiresInSeconds
     };
   },
+  extendToken: async (parent, { data }, { request, db }, info) => {
+    const userId = getUserId(request);
+    const user = await db.User.findByPk(userId);
+
+    const { token, expiresInSeconds } = getToken(userId);
+    return {
+      user: user.dataValues,
+      token,
+      expiresInSeconds
+    };
+  },
+
   createUserSymptomDetail: async (parent, { data }, { request, db }, info) => {
-    console.log("createUserSymptomDetail", data);
     const userId = getUserId(request);
 
     const { dataValues: usd } = await db.UserSymptomDetail.create({
